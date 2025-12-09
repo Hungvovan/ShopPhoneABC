@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Trang giỏ hàng của bạn</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
+    <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+
+        <header class="w-full bg-white dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-20 border-b border-gray-200 dark:border-gray-700">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center gap-8">
+                        <a class="flex items-center gap-2 text-gray-900 dark:text-white" href="#">
+                            <span class="material-symbols-outlined text-primary text-3xl">data_usage</span>
+                            <h2 class="text-xl font-bold">ABC Mobile</h2>
+                        </a>
+                        <nav class="hidden md:flex items-center gap-6">
+                            <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium" href="#">Điện thoại</a>
+                            <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium" href="#">Phụ kiện</a>
+                            <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium" href="#">Khuyến mãi</a>
+                            <a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium" href="#">Tin tức</a>
+                        </nav>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <label class="hidden lg:flex flex-col min-w-40 !h-10 max-w-64">
+                            <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                                <div class="text-gray-500 dark:text-gray-400 flex bg-gray-100 dark:bg-gray-800 items-center justify-center pl-3 rounded-l-lg border-r-0">
+                                    <span class="material-symbols-outlined">search</span>
+                                </div>
+                                <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-gray-100 dark:bg-gray-800 h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 px-4 text-sm font-normal" placeholder="Tìm kiếm sản phẩm..." value="" />
+                            </div>
+                        </label>
+                        <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 gap-2 text-sm font-bold min-w-0 px-2.5">
+                            <span class="material-symbols-outlined text-xl">favorite</span>
+                        </button>
+                        <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-primary/20 text-primary gap-2 text-sm font-bold min-w-0 px-2.5 relative">
+                            <span class="material-symbols-outlined text-xl">shopping_cart</span>
+                            <span class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-white text-xs font-bold">3</span>
+                        </button>
+                        <button class="hidden md:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold">
+                            <span class="truncate">Đăng nhập</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="layout-container flex h-full grow flex-col">
+            <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="flex flex-wrap gap-2 pb-6">
+                    <a class="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary text-sm font-medium" href="index.html">Trang chủ</a>
+                    <span class="text-gray-400 dark:text-gray-500 text-sm font-medium">/</span>
+                    <span class="text-gray-900 dark:text-white text-sm font-medium">Giỏ hàng</span>
+                </div>
+
+                <div class="flex flex-wrap justify-between gap-4 pb-8 items-end">
+                    <h1 class="text-gray-900 dark:text-white text-3xl md:text-4xl font-black tracking-tighter">Giỏ hàng của bạn</h1>
+                    <p class="text-gray-500 dark:text-gray-400">Bạn đang có <span class="font-bold text-gray-700 dark:text-gray-200">3</span> sản phẩm trong giỏ hàng</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+
+                    <div class="lg:col-span-2 space-y-4">
+                        <div class="overflow-x-auto bg-white dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-800">
+                            <table class="w-full text-sm text-left">
+                                <thead class="text-xs text-gray-500 dark:text-gray-400 uppercase bg-gray-50 dark:bg-gray-800/50">
+                                    <tr>
+                                        <th class="px-6 py-3 min-w-[300px]" scope="col">Sản phẩm</th>
+                                        <th class="px-6 py-3 text-center" scope="col">Đơn giá</th>
+                                        <th class="px-6 py-3 text-center" scope="col">Số lượng</th>
+                                        <th class="px-6 py-3 text-right" scope="col">Thành tiền</th>
+                                        <th class="px-6 py-3 text-right" scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b dark:border-gray-800">
+                                        <th class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap" scope="row">
+                                            <div class="flex items-center gap-4">
+                                                <img class="w-16 h-16 rounded-lg object-cover" data-alt="iPhone 15 Pro Max in Natural Titanium color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0HER5kk4BgcpnHAEmDvWIDQqzDQM2xFmIbejvFghzoMB-Q1pM9vx34PKTe9GhjVLAdV-IwxDetzj6SRXzc0Bb1fIEv19c_eOizDLR6XHcFvh4JFTpbOmWUqllMNxBirKuZLFvVtX9Xbseg-7A3RA4h9c6JWBcYllFblvabUMiQmbSzQk33Tqqa8z4R-Y8ca1HlxCZBj4z7URFGWybwofcevEAI3NJ25VQwH3E0EXL8qFa1hvJgoboOuKO1htYJwGgNGK31_GzCWk" />
+                                                <div>
+                                                    <p class="font-bold">iPhone 15 Pro Max</p>
+                                                    <p class="text-xs text-gray-500 dark:text-gray-400">256GB | Natural Titanium</p>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td class="px-6 py-4 text-center">29.990.000đ</td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center justify-center gap-2">
+                                                <button class="flex items-center justify-center size-8 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">-</button>
+                                                <input class="w-10 h-8 text-center bg-transparent border-0 p-0 focus:ring-0" type="text" value="1" />
+                                                <button class="flex items-center justify-center size-8 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">+</button>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-right font-bold text-gray-900 dark:text-white">29.990.000đ</td>
+                                        <td class="px-6 py-4 text-right">
+                                            <button class="text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">
+                                                <span class="material-symbols-outlined text-xl">delete</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="border-b dark:border-gray-800">
+                                        <th class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap" scope="row">
+                                            <div class="flex items-center gap-4">
+                                                <img class="w-16 h-16 rounded-lg object-cover" data-alt="AirPods Pro 2 with USB-C case" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwml_KtJ6aowIKEGTz5vEFV9dVY7z4gMkq38b8S_tXcUMXd3lXKQtwzxh3q5we_SCTeTlL9EEwCaKtSCgZTcGcJcNSfhWHtl0Xqb336i1TIpaBGGOfkncNBVzQj1JouBXquqx5oGhR5NH6EqFovtnb5cmqfirqamT_DfVMS2Z2sk0NPdyPfLNWZUgExIMjCnE-JYOx9GTHriavKzQqZA2ZhTcCDf1EVBvGT4ZGKX9WVJ6qed_LGEgdz5S9-aD2ySNv8GVzIokA2sQ" />
+                                                <div>
+                                                    <p class="font-bold">AirPods Pro 2</p>
+                                                    <p class="text-xs text-gray-500 dark:text-gray-400">USB-C</p>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td class="px-6 py-4 text-center">5.890.000đ</td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center justify-center gap-2">
+                                                <button class="flex items-center justify-center size-8 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">-</button>
+                                                <input class="w-10 h-8 text-center bg-transparent border-0 p-0 focus:ring-0" type="text" value="1" />
+                                                <button class="flex items-center justify-center size-8 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">+</button>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-right font-bold text-gray-900 dark:text-white">5.890.000đ</td>
+                                        <td class="px-6 py-4 text-right">
+                                            <button class="text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">
+                                                <span class="material-symbols-outlined text-xl">delete</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap" scope="row">
+                                            <div class="flex items-center gap-4">
+                                                <img class="w-16 h-16 rounded-lg object-cover bg-gray-100" data-alt="Anker PowerCore 10000mAh power bank" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-6R0oesLXtpcF4M3ZT1KVRDCkqwoNg0TfbBYVPN7-W-ddrTAQHpCXuto2_V5G8EDN7QR4jJ3IO9S_234quRH2lz-NMMB3XoNH8dXgGohqldTAV2qO-V-4KtS_D1Da7_nOfChyEzKaLOO8f1GYGl_GCzl6AoDdLaFpSx6Jd3GOy3QF3eoiLT80BHHwv0EkIj3w4Xld06u_SYT1ftblR_AvR6Ow3s1xcIFIBb5YIwBKDzwQc2zhlMKMnMDY_wiD--1FLchTVVyPMTc" />
+                                                <div>
+                                                    <p class="font-bold">Sạc dự phòng Anker</p>
+                                                    <p class="text-xs text-gray-500 dark:text-gray-400">PowerCore 10000mAh</p>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <td class="px-6 py-4 text-center">850.000đ</td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center justify-center gap-2">
+                                                <button class="flex items-center justify-center size-8 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">-</button>
+                                                <input class="w-10 h-8 text-center bg-transparent border-0 p-0 focus:ring-0" type="text" value="2" />
+                                                <button class="flex items-center justify-center size-8 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">+</button>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-right font-bold text-gray-900 dark:text-white">1.700.000đ</td>
+                                        <td class="px-6 py-4 text-right">
+                                            <button class="text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500">
+                                                <span class="material-symbols-outlined text-xl">delete</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <a class="inline-flex items-center gap-2 text-primary font-bold text-sm py-2 hover:underline" href="#">
+                            <span class="material-symbols-outlined">arrow_back</span>
+                            Tiếp tục mua sắm
+                        </a>
+                    </div>
+
+                    <div class="lg:col-span-1 w-full">
+                        <div class="bg-white dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-800 p-6 space-y-6 sticky top-24">
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Tóm tắt đơn hàng</h2>
+
+                            <div class="space-y-4">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500 dark:text-gray-400">Tạm tính</span>
+                                    <span class="font-medium text-gray-800 dark:text-gray-200">37.580.000đ</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500 dark:text-gray-400">Phí vận chuyển</span>
+                                    <span class="font-medium text-gray-800 dark:text-gray-200">Miễn phí</span>
+                                </div>
+                                <div class="relative">
+                                    <input class="w-full rounded-lg border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-sm focus:ring-primary focus:border-primary" placeholder="Nhập mã giảm giá" type="text" />
+                                    <button class="absolute right-1 top-1/2 -translate-y-1/2 bg-primary text-white text-xs font-bold px-4 py-1.5 rounded-md hover:bg-primary/90">Áp dụng</button>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-base font-bold text-gray-900 dark:text-white">Tổng cộng</span>
+                                    <span class="text-xl font-black text-primary">37.580.000đ</span>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col gap-3">
+                                <a href="payment.html">
+                                <button class="w-full flex items-center justify-center rounded-lg h-12 px-6 bg-primary text-white text-base font-bold hover:bg-primary/90 transition-colors">
+                                    Tiến hành đặt hàng
+                                </button>
+                                </a>
+                                <p class="text-xs text-center text-gray-500 dark:text-gray-400">Bạn có thể chọn phương thức thanh toán ở bước tiếp theo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

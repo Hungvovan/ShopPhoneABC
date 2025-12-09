@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trang chi tiết sản phẩm - ABC Mobile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-[#111418] dark:text-white/90">
+<!-- TopNavBar -->
+<header class="bg-white dark:bg-background-dark/80 dark:border-b dark:border-white/10 sticky top-0 z-50 backdrop-blur-sm">
+<div class="container mx-auto px-4">
+<div class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] dark:border-none py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2 text-[#111418] dark:text-white">
+<span class="material-symbols-outlined text-primary text-3xl">data_usage</span>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">ABC Mobile</h2>
+</div>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-[#111418] dark:text-white/90 text-sm font-medium leading-normal" href="#">Điện thoại</a>
+<a class="text-[#111418] dark:text-white/90 text-sm font-medium leading-normal" href="#">Phụ kiện</a>
+<a class="text-[#111418] dark:text-white/90 text-sm font-medium leading-normal" href="#">Khuyến mãi</a>
+<a class="text-[#111418] dark:text-white/90 text-sm font-medium leading-normal" href="#">Tin tức</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end items-center gap-4">
+<div class="hidden sm:flex relative min-w-40 max-w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#617589]">search</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] dark:text-white dark:bg-white/10 dark:placeholder:text-white/60 focus:outline-0 focus:ring-2 focus:ring-primary border-none bg-[#f0f2f4] h-10 placeholder:text-[#617589] pl-10 pr-4 text-sm font-normal leading-normal" placeholder="Tìm kiếm sản phẩm..." value=""/>
+</div>
+<div class="flex gap-2">
+<button class="flex min-w-[40px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-3 bg-primary/10 text-primary text-sm font-bold leading-normal tracking-[0.015em] relative">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">2</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA5GIDUd2P-WoJSQ5fE02TQHAqOYgJBH2PR6VxaG2NEvmKw0fay5yX96jaYEb38Pti1bgOqrp-kiD6eabgLYxQdFDg57ZTLGjwya2Y547qSfMsvGcfyeAQhQhdwC3IUugddFXbh6owasWA99VHGP4yzjzoYuIpp790Zuo7N-7j3BWGiS1c1q3_1Snwq_jSTiOElObD-HqGwN_8tY5bVmDwocQ8JhCbsGxI8V356-XNn18X_m5s3fEo9Usrf8qiFwSgoKTXm9G2YGNI");'></div>
+</div>
+</div>
+</div>
+</header>
+<main class="container mx-auto px-4 py-8">
+<!-- Breadcrumbs -->
+<div class="mb-6">
+<div class="flex flex-wrap items-center gap-2">
+<a class="text-[#617589] dark:text-white/60 text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Trang chủ</a>
+<span class="text-[#617589] dark:text-white/60 text-sm font-medium leading-normal">/</span>
+<a class="text-[#617589] dark:text-white/60 text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Điện thoại</a>
+<span class="text-[#617589] dark:text-white/60 text-sm font-medium leading-normal">/</span>
+<span class="text-[#111418] dark:text-white text-sm font-medium leading-normal">iPhone 15 Pro Max</span>
+</div>
+</div>
+<!-- Product Details Section -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
+<!-- Left Column: Image Gallery -->
+<div class="flex flex-col gap-4">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl shadow-sm border border-black/5 dark:border-white/10" data-alt="Main image of iPhone 15 Pro Max" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDM4G7oLcPo7IrGMYeHIAZNXJTE9ltM9bDJRumlkgzCYFOneMT7rx8W1_jF945JTR4FvHU0D0vgXBiTu5ubE5sVksm-yIyOOTNhwxWdubmPRIPEcjVmXAxNSscrpzgk_PYm5Eyadf3a_GWXhD3dXdPxmhblY_sOGFy9J4I7gVWyiiS__KgtCQVIBOt9revaBVHDb57MtGEEiwxm1BmxHYGAkbdn9dpAhhWmUulvT5yMGUK3-8JRQ6HYn-C6MIF4OUm0Hao8BimPcuI");'></div>
+<div class="grid grid-cols-5 gap-3">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg border-2 border-primary" data-alt="iPhone 15 Pro Max side view" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC5N_U19Cfc3_-KrZrLamqYymBSBEkxjPF8LrFrcgXuQK-AwrGnrGg635D_Gg6mZYKzYUVbZA7ewWynw8TNt39Iix1ff0NwhULK0iXPDsLLaBEygzft2MTqdCA3Af3sZ6yaa0PATg3sJjIgGQUyb1H_Pd0xVPiE29Zf6jboBNRHCoaCqDAlT8if4mGyft1-keIuHFY9N3u3Oy5EwXgp3giA-xvKifImiurw6ulJVTUz7svjqPes6uT3OEjY1oUdG8kq9SsrJre_6z8");'></div>
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg border border-transparent hover:border-primary/50 cursor-pointer" data-alt="iPhone 15 Pro Max camera detail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDdhopNtc45NqGXDx9tU2kzuMngYlMSbApyXHjHY7h_BBUjnfGdQ6tYmX6Ja97j5ZhDtgIspN_AGmtnUPnY3DbNfBbka6-BFyDtAJHRF-nXNq8SetlG5BUqb1v6YGl628pWwOb9SaybZ7IsBQBSbOqUB4izCZVyue4LXsMVx4QxZpM6mIpHm5maH-wKRmt-38yBIDw5y1rWPrrmoI_Gou9LBSSmUfWlRDkXNhRt-zVLfylxw31GLgz47JbJtByxhDdESd5s5IWidS4");'></div>
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg border border-transparent hover:border-primary/50 cursor-pointer" data-alt="iPhone 15 Pro Max front screen" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC80EgyZYIsh3z-AfmxSHEOwN12k_jdVvF45NTuQY1Gs3ty3chtuLw70UZOUbOfS3Y4vn27lOZoaPuCnLE4FIfxSPi5qW2Bl9XANvcWFGN_QHXdSrZ5guS0UJl0adBDGZSTB766YWbxBZ28bHU3VlRjx4YVhglxfzGilUFVTSyxkMVksly490gscTDwaNsA_G6kUA2CGjTQ611-IJC2vp5iDtlBit45d4_RoqWK87nlEajlNWU7Hl59F9xTrcBOpakiaaSUmZgGaiM");'></div>
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg border border-transparent hover:border-primary/50 cursor-pointer" data-alt="iPhone 15 Pro Max back view" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBX2vW6F023bIgnJRkRu0WCLE4U72zYQWDxegSpSzXg_uOubhksIHJ-5hr2LxlvWluKv0AKhiJiuH-RIbC2-HQ1NftjgxgKbmDQw5lSdDdtgvN8i0P7L6ZNxtTsNaKlMPf-EvW-7Sl4_PImo7SDEnp2uO2JlXRKaUZQK_WAYqrbgT34exCVwd_LeJzaUdf8gTT-qTZFvSJ9tosgLrQ_sp_8u3sQwEDRXxZW4EUFlEl0DypuhsCn84UWvFQjJK_KUeMYTehlvu5T1pc");'></div>
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg border border-transparent hover:border-primary/50 cursor-pointer" data-alt="iPhone 15 Pro Max dynamic island" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAhQZzks-_IEXS4KsqUiTrqtQdLIxNEOR5mDhZe2xHAARyNa161i79LemgluLdmLMpuI2bGv14626r8jAn-uNIiIvqvU8r8CZcOWGghs38oJg3EsKj8i56XpF4jeZyY6be5etkMPACM3cbtUh_9-gZBGOMLjFWEMBLfCaiaZcOEKPP2ZPeAEokAJVUWQOSJ_C6ElJ6yPzhUn_drTTrx-uJ78w9VkJbHjsjEMdH9lQTpSfvlEA2aaQL1Na711airFdB6m2lR-fGyoGc");'></div>
+</div>
+</div>
+<!-- Right Column: Product Info -->
+<div class="flex flex-col gap-5">
+<h1 class="text-[#111418] dark:text-white tracking-tight text-3xl font-bold leading-tight">iPhone 15 Pro Max 256GB | Chính hãng VN/A</h1>
+<div class="flex items-center gap-3 text-sm">
+<div class="flex items-center text-amber-500">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1, 'wght' 700">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1, 'wght' 700">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1, 'wght' 700">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1, 'wght' 700">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 700">star_half</span>
+</div>
+<a class="text-gray-500 dark:text-white/60" href="#reviews">(125 đánh giá)</a>
+<div class="h-4 w-px bg-gray-300 dark:bg-white/20"></div>
+<p class="text-green-600 dark:text-green-400 font-semibold">Còn hàng</p>
+</div>
+<div class="bg-white dark:bg-background-dark/80 p-4 rounded-lg border border-black/5 dark:border-white/10 flex flex-col gap-2">
+<div class="flex items-baseline gap-3">
+<span class="text-primary text-3xl font-bold">29.990.000₫</span>
+<span class="text-gray-400 dark:text-white/50 text-lg line-through">34.990.000₫</span>
+</div>
+<span class="inline-block bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400 text-xs font-bold px-2 py-1 rounded-full w-fit">Giảm 14%</span>
+</div>
+<!-- Variant Selection -->
+<div class="space-y-4">
+<div>
+<h3 class="text-sm font-medium mb-2">Màu sắc: Titan Tự nhiên</h3>
+<div class="flex gap-2">
+<button class="size-8 rounded-full bg-[#e3e4e6] ring-2 ring-primary ring-offset-2 ring-offset-background-light dark:ring-offset-background-dark"></button>
+<button class="size-8 rounded-full bg-[#464749]"></button>
+<button class="size-8 rounded-full bg-[#d2cfc8]"></button>
+<button class="size-8 rounded-full bg-[#3c3d3a]"></button>
+</div>
+</div>
+<div>
+<h3 class="text-sm font-medium mb-2">Dung lượng</h3>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 text-sm font-semibold rounded-lg border-2 border-primary bg-primary/10 text-primary">256GB</button>
+<button class="px-4 py-2 text-sm font-semibold rounded-lg border border-gray-300 dark:border-white/20 hover:border-primary">512GB</button>
+<button class="px-4 py-2 text-sm font-semibold rounded-lg border border-gray-300 dark:border-white/20 hover:border-primary">1TB</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 pt-4">
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em]">Mua ngay</button>
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary/10 dark:bg-white/10 text-primary dark:text-primary-400 text-base font-bold leading-normal tracking-[0.015em] border border-primary/20">Thêm vào giỏ hàng</button>
+</div>
+<div class="text-center text-sm text-gray-600 dark:text-white/60">
+<p>Trả góp 0% qua thẻ tín dụng. <a class="font-semibold text-primary" href="#">Xem chi tiết</a></p>
+</div>
+</div>
+</section>
+<!-- Product Information & Reviews -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2">
+<h2 class="text-2xl font-bold mb-4">Thông tin sản phẩm</h2>
+<div class="bg-white dark:bg-background-dark/60 p-6 rounded-lg border border-black/5 dark:border-white/10">
+<h3 class="font-bold text-lg mb-4">Thông số kỹ thuật</h3>
+<div class="space-y-3 text-sm">
+<div class="flex justify-between p-2 rounded-md even:bg-black/5 dark:even:bg-white/5">
+<span class="font-medium text-gray-600 dark:text-white/60">Màn hình</span>
+<span class="text-right">6.7", Super Retina XDR, 120Hz</span>
+</div>
+<div class="flex justify-between p-2 rounded-md even:bg-black/5 dark:even:bg-white/5">
+<span class="font-medium text-gray-600 dark:text-white/60">Vi xử lý</span>
+<span class="text-right">Apple A17 Pro</span>
+</div>
+<div class="flex justify-between p-2 rounded-md even:bg-black/5 dark:even:bg-white/5">
+<span class="font-medium text-gray-600 dark:text-white/60">RAM</span>
+<span class="text-right">8 GB</span>
+</div>
+<div class="flex justify-between p-2 rounded-md even:bg-black/5 dark:even:bg-white/5">
+<span class="font-medium text-gray-600 dark:text-white/60">Camera sau</span>
+<span class="text-right">Chính 48MP &amp; Phụ 12MP, 12MP</span>
+</div>
+<div class="flex justify-between p-2 rounded-md even:bg-black/5 dark:even:bg-white/5">
+<span class="font-medium text-gray-600 dark:text-white/60">Camera trước</span>
+<span class="text-right">12 MP</span>
+</div>
+<div class="flex justify-between p-2 rounded-md even:bg-black/5 dark:even:bg-white/5">
+<span class="font-medium text-gray-600 dark:text-white/60">Pin &amp; Sạc</span>
+<span class="text-right">4422 mAh, 20W</span>
+</div>
+</div>
+<h3 class="font-bold text-lg mt-8 mb-4">Mô tả chi tiết</h3>
+<div class="prose prose-sm dark:prose-invert max-w-none text-gray-700 dark:text-white/80 space-y-4">
+<p>iPhone 15 Pro Max là một bước đột phá lớn về công nghệ, với khung titan chuẩn hàng không vũ trụ, chip A17 Pro mang lại hiệu năng đồ họa đỉnh cao, và hệ thống camera chuyên nghiệp nhất từng có trên iPhone.</p>
+<p>Màn hình Super Retina XDR với ProMotion đẩy tần số quét lên đến 120Hz cho trải nghiệm cuộn lướt và chơi game mượt mà chưa từng có. Dynamic Island vẫn là trung tâm thông báo linh hoạt, giúp bạn không bỏ lỡ bất kỳ điều gì quan trọng.</p>
+</div>
+</div>
+</div>
+<div class="lg:col-span-1" id="reviews">
+<h2 class="text-2xl font-bold mb-4">Đánh giá &amp; Nhận xét</h2>
+<div class="bg-white dark:bg-background-dark/60 p-6 rounded-lg border border-black/5 dark:border-white/10 space-y-6">
+<div class="flex items-center gap-4">
+<div class="text-center">
+<p class="text-4xl font-bold text-primary">4.5</p>
+<div class="flex text-amber-500">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">star_half</span>
+</div>
+<p class="text-xs text-gray-500 dark:text-white/50">125 đánh giá</p>
+</div>
+<div class="flex-grow space-y-1 text-xs">
+<div class="flex items-center gap-2"><span>5</span><span class="material-symbols-outlined text-amber-500 text-sm">star</span><div class="w-full bg-gray-200 dark:bg-white/10 rounded-full h-1.5"><div class="bg-amber-500 h-1.5 rounded-full" style="width: 75%"></div></div></div>
+<div class="flex items-center gap-2"><span>4</span><span class="material-symbols-outlined text-amber-500 text-sm">star</span><div class="w-full bg-gray-200 dark:bg-white/10 rounded-full h-1.5"><div class="bg-amber-500 h-1.5 rounded-full" style="width: 15%"></div></div></div>
+<div class="flex items-center gap-2"><span>3</span><span class="material-symbols-outlined text-amber-500 text-sm">star</span><div class="w-full bg-gray-200 dark:bg-white/10 rounded-full h-1.5"><div class="bg-amber-500 h-1.5 rounded-full" style="width: 5%"></div></div></div>
+<div class="flex items-center gap-2"><span>2</span><span class="material-symbols-outlined text-amber-500 text-sm">star</span><div class="w-full bg-gray-200 dark:bg-white/10 rounded-full h-1.5"><div class="bg-amber-500 h-1.5 rounded-full" style="width: 3%"></div></div></div>
+<div class="flex items-center gap-2"><span>1</span><span class="material-symbols-outlined text-amber-500 text-sm">star</span><div class="w-full bg-gray-200 dark:bg-white/10 rounded-full h-1.5"><div class="bg-amber-500 h-1.5 rounded-full" style="width: 2%"></div></div></div>
+</div>
+</div>
+<div class="border-t border-gray-200 dark:border-white/10 pt-4">
+<div class="flex gap-3">
+<img alt="avatar" class="size-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaY-wHDPWJH25KuhZCRJBQZyGcHVRhz27qHH114q0Krd3ZyeYXRKE3TbPONAtCDoyCeMaetVh-SkgFiHyEfLvGFqzwyEa4oCgJWDObZM5nNNqiJUXqyGMKvQUVxYcTNEaVsOJMp9reBDv6vUNiOACm6faeyi90nxco3XdS54bGgAXEd1u_LWQLjyXy3IIomxjT70P-jf0ZmWd4fhiCBKq0OQWxdgFVv7ysPNWILOgnR90Kxh-oYSBiuY5XWcS7C4IRzWNaOX2duZg"/>
+<div>
+<h4 class="font-semibold text-sm">Nguyễn Thu An</h4>
+<div class="flex text-amber-500 my-1">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1">star</span>
+</div>
+<p class="text-sm text-gray-700 dark:text-white/80">Sản phẩm tuyệt vời, camera chụp ảnh siêu nét, pin dùng cả ngày không hết. Rất đáng tiền!</p>
+</div>
+</div>
+</div>
+<button class="w-full text-center py-2.5 rounded-lg border border-gray-300 dark:border-white/20 text-sm font-bold hover:bg-black/5 dark:hover:bg-white/5">Viết đánh giá của bạn</button>
+</div>
+</div>
+</section>
+<!-- Related Products -->
+<section class="mt-16">
+<h2 class="text-2xl font-bold mb-6">Sản phẩm liên quan</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+<div class="flex flex-col gap-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg overflow-hidden bg-white dark:bg-background-dark/80 border border-black/5 dark:border-white/10 p-4">
+<div class="w-full h-full bg-center bg-no-repeat bg-contain" data-alt="Samsung Galaxy S24 Ultra" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBDMRihhudTjbWgcMGUUtoX6PsT9cwdtIPaoWPo-iJ8OQO5BbZt1QbDYlvuI9PLfojMF2gzF0Kn-L7aZZCraf3e35qrKSPLDjP1S44S-sgqZ7QN47UgC2_xcWVlwB80HOxqa0FXZBipHtkJkUHDJsTeDwEKUvJLeGNLtNtFhfeCTJ7u93UeGIRLYB9xdpp3Z900O0xrsOxjeoKqxX2unjVBU-UpXA6OM3TPlGRgge6XXOSymLMeUJhQSJl-jCXtwp0ZdCLB5KpO-Zg");'></div>
+</div>
+<div class="flex flex-col items-start">
+<h3 class="font-semibold text-sm group-hover:text-primary">Samsung Galaxy S24 Ultra</h3>
+<p class="font-bold text-base text-primary">31.490.000₫</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg overflow-hidden bg-white dark:bg-background-dark/80 border border-black/5 dark:border-white/10 p-4">
+<div class="w-full h-full bg-center bg-no-repeat bg-contain" data-alt="iPhone 15 Plus" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBdsgyomJiXgdCxlej87EcwQ2twoglKi4HLQjzFnOtegVoejCfowB0mLP2JZnlZ7jK3ORpI3n5V9Fh9yGVAJbAYJ3OLlYGYMFsncoRVyf3780V-u9GsbOQtjCgyk-XSPM3AGGPtpW0y98HDeuzYV0UT1u-St3EWap7EEqlUO1VXJGIHnHbzzwlTN7sP-UoaptLiBxwEy3jwL1DBSyJXktRiJOf2mUMmlshnmQsojrW4wQ-RuQ5cixqyy6gJQAd7MnGKF2EWiSI4MUk");'></div>
+</div>
+<div class="flex flex-col items-start">
+<h3 class="font-semibold text-sm group-hover:text-primary">iPhone 15 Plus 128GB</h3>
+<p class="font-bold text-base text-primary">24.790.000₫</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg overflow-hidden bg-white dark:bg-background-dark/80 border border-black/5 dark:border-white/10 p-4">
+<div class="w-full h-full bg-center bg-no-repeat bg-contain" data-alt="Xiaomi 14" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCe-pcrMuhw6P5wf4HS5lP1cUpwcQ7zU1g5XGV13rKJdsBGqciuMhJMlKl0GTPTuH4Ooy-E6ySwS6Qbg7z9V1z6IvWrBUgujqhFeNEx5AFEdUHM3GEIPXaTBHehTLIL8_Nee4TTwGqH4PPM1glqK1GHpydaYZ1NyX5fxF3CmblhM6APp_TPyaSL8tG9h5koUO0lHJUcr9X9voPu3ZUjVZ3w2kqEwILZanHkrE7GypuJ6YUZOR9Ikge7SIEzPi21F-ZOrAxe7PGfrVk");'></div>
+</div>
+<div class="flex flex-col items-start">
+<h3 class="font-semibold text-sm group-hover:text-primary">Xiaomi 14</h3>
+<p class="font-bold text-base text-primary">22.990.000₫</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg overflow-hidden bg-white dark:bg-background-dark/80 border border-black/5 dark:border-white/10 p-4">
+<div class="w-full h-full bg-center bg-no-repeat bg-contain" data-alt="OPPO Find N3 Flip" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCU5PpD2EARB29saQyvGHDpwnhOP_foZkV5AL9U3bmYtDxTIZxkLoLfP_oaTD5a86_IFHQR4XHi3wrTsys42quHuOP6C7g141PCo7QccjvubpN8hZ_ry-yWui4FHU4AvnpuG84GLsx3FurR-4O3vD1W7UtLticRgINn8vR0QZO8p4TbWXXA_z0LGWmE590fSQvKWDgs3RxJwKibFZRKuPBdHhSMBdVLBDa5xetfFU9kzocS5VoN2pJ7E7fArpUCbnyvN5FaBPvKeLk");'></div>
+</div>
+<div class="flex flex-col items-start">
+<h3 class="font-semibold text-sm group-hover:text-primary">OPPO Find N3 Flip</h3>
+<p class="font-bold text-base text-primary">22.990.000₫</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>
