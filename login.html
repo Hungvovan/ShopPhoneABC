@@ -59,7 +59,7 @@
           <div class="flex items-center gap-9">
             <a class="text-[#111418] dark:text-white text-sm font-medium leading-normal" href="index.html">Trang chủ</a>
             <a class="text-[#111418] dark:text-white text-sm font-medium leading-normal" href="#">Sản phẩm</a>
-            <a class="text-[#111418] dark:text-white text-sm font-medium leading-normal" href="#">Khuyến mãi</a>
+            <a class="text-[#111418] dark:text-white text-sm font-medium leading-normal" href="voucher.html">Khuyến mãi</a>
             <a class="text-[#111418] dark:text-white text-sm font-medium leading-normal" href="#">Tin tức</a>
           </div>
           <div class="flex gap-2">
@@ -91,17 +91,34 @@
             id="auth-container"
             class="mt-8 bg-white dark:bg-background-dark p-6 sm:p-8 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 touch-pan-x"
           >
+        
             <!-- TABS -->
-            <div class="flex border-b border-[#dbe0e6] dark:border-gray-700 gap-8">
-              
+          <div class="flex border-b border-[#dbe0e6] dark:border-gray-700 gap-8">
+            <!-- Tab Đăng nhập -->
               <button
-                id="tab-register"
-                class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#617589] dark:text-gray-400 pb-[13px] pt-4 flex-1 text-sm font-bold leading-normal tracking-[0.015em]"
-                type="button"
-              >
-                Đăng ký
+                  id="tab-login"
+                  type="button"
+                  class="flex flex-col items-center justify-center
+                        border-b-[3px] border-b-primary
+                        text-primary
+                        pb-[13px] pt-4 flex-1
+                        text-sm font-bold leading-normal tracking-[0.015em]">
+                      Đăng nhập
               </button>
-            </div>
+
+                <!-- Tab Đăng ký -->
+                <button
+                  id="tab-register"
+                  type="button"
+                  class="flex flex-col items-center justify-center
+                        border-b-[3px] border-b-transparent
+                        text-[#617589] dark:text-gray-400
+                        pb-[13px] pt-4 flex-1
+                        text-sm font-bold leading-normal tracking-[0.015em]">
+                  Đăng ký
+              </button>
+             </div>
+
 
             <!-- PANELS -->
             <div class="mt-8 overflow-hidden relative">
