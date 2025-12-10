@@ -1,395 +1,519 @@
 <!DOCTYPE html>
+<html class="light" lang="vi">
 
-<html class="light" lang="vi"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Trang danh mục sản phẩm</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-      .material-symbols-outlined {
-        font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 24
-      }
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Trang danh mục sản phẩm</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
     </style>
-<script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "primary": "#2b8cee",
-              "background-light": "#f6f7f8",
-              "background-dark": "#101922",
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b8cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
             },
-            fontFamily: {
-              "display": ["Inter", "sans-serif"]
-            },
-            borderRadius: {
-              "DEFAULT": "0.25rem",
-              "lg": "0.5rem",
-              "xl": "0.75rem",
-              "full": "9999px"
-            },
-          },
-        },
-      }
+        }
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const grid = document.getElementById('product-grid');
+          const sortButtons = document.querySelectorAll('.sort-btn');
+          const allCards = Array.from(grid.querySelectorAll('.product-card'));
+
+          // Lưu lại thứ tự ban đầu
+          allCards.forEach((card, index) => {
+            card.dataset.originalIndex = index;
+          });
+
+          function sortProducts(type) {
+            const cards = Array.from(grid.querySelectorAll('.product-card'));
+            let sorted = [...cards];
+
+            switch (type) {
+              case 'price-asc':
+                sorted.sort((a, b) => (+a.dataset.price || 0) - (+b.dataset.price || 0));
+                break;
+              case 'price-desc':
+                sorted.sort((a, b) => (+b.dataset.price || 0) - (+a.dataset.price || 0));
+                break;
+              case 'newest':
+                sorted.sort(
+                  (a, b) => new Date(b.dataset.date || 0) - new Date(a.dataset.date || 0)
+                );
+                break;
+              case 'popular':
+                sorted.sort((a, b) => (+b.dataset.popularity || 0) - (+a.dataset.popularity || 0));
+                break;
+              default: // 'default'
+                sorted.sort(
+                  (a, b) => (+a.dataset.originalIndex || 0) - (+b.dataset.originalIndex || 0)
+                );
+                break;
+            }
+
+            // Gắn lại card vào grid theo thứ tự mới
+            sorted.forEach(card => grid.appendChild(card));
+          }
+
+          // Gán sự kiện click cho các nút sắp xếp
+          sortButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+              const type = btn.dataset.sort;
+              sortProducts(type);
+
+              // (Tuỳ chọn) đánh dấu nút đang active bằng viền
+              sortButtons.forEach(b => b.classList.remove('ring-1', 'ring-primary/60'));
+              btn.classList.add('ring-1', 'ring-primary/60');
+            });
+          });
+        });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const sortButtons = document.querySelectorAll('.sort-btn');
+
+    function setActiveButton(activeBtn) {
+      sortButtons.forEach(btn => {
+        const p = btn.querySelector('p');
+
+        if (btn === activeBtn) {
+          // Nút đang được chọn
+          btn.classList.add('bg-primary/20', 'dark:bg-primary/30');
+          btn.classList.remove('bg-gray-100', 'dark:bg-gray-800');
+
+          p.classList.add('text-primary', 'dark:text-white', 'font-semibold');
+          p.classList.remove('text-gray-700', 'dark:text-gray-300', 'font-medium');
+        } else {
+          // Nút không được chọn
+          btn.classList.remove('bg-primary/20', 'dark:bg-primary/30');
+          btn.classList.add('bg-gray-100', 'dark:bg-gray-800');
+
+          p.classList.remove('text-primary', 'dark:text-white', 'font-semibold');
+          p.classList.add('text-gray-700', 'dark:text-gray-300', 'font-medium');
+        }
+      });
+    }
+
+    // Gán sự kiện click cho từng nút
+    sortButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setActiveButton(btn);
+      });
+    });
+
+    // Đảm bảo trạng thái ban đầu là "Mặc định"
+    const defaultBtn = document.querySelector('.sort-btn[data-sort="default"]');
+    if (defaultBtn) setActiveButton(defaultBtn);
+  });
+</script>
 </head>
+
 <body class="font-display bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-100">
-<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
-<!-- TopNavBar -->
-<header class="w-full bg-white dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800">
-<div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex items-center justify-between h-16">
-<div class="flex items-center gap-8">
-<div class="flex items-center gap-2 text-gray-800 dark:text-white">
-<span class="material-symbols-outlined text-primary" style="font-size: 32px;">data_usage</span>
-<h2 class="text-xl font-bold leading-tight tracking-[-0.015em]">ABC Mobile</h2>
-</div>
-<div class="hidden md:flex">
-<label class="relative flex-col min-w-40 !h-10 max-w-64">
-<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
-<div class="text-gray-500 dark:text-gray-400 flex bg-gray-100 dark:bg-gray-800 items-center justify-center pl-3 rounded-l-lg border-r-0">
-<span class="material-symbols-outlined">search</span>
-</div>
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-800 dark:text-gray-200 focus:outline-0 focus:ring-0 border-none bg-gray-100 dark:bg-gray-800 h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal" placeholder="Search products..." value=""/>
-</div>
-</label>
-</div>
-</div>
-<div class="flex items-center gap-8">
-<nav class="hidden md:flex items-center gap-6">
-<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="phone.html">Điện thoại</a>
-<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Phụ kiện</a>
-<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="voucher.html">Khuyến mãi</a>
-<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Tin tức</a>
-</nav>
-<div class="flex items-center gap-3">
-  <a href="shopcart.html">
-      <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
-      <span class="material-symbols-outlined mr-2">shopping_cart</span>
-      <span class="truncate hidden sm:inline">Giỏ hàng</span>
-      </button>
-  </a>
-<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-<span class="material-symbols-outlined">favorite</span>
-</button>
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBSBc3R0FEAzrvpOcjHbMxmnzIgpzZpyZXCbYRBe09OGGwUTd-1fbp7RLSX1Dklrm0UYpox1mmkDqDU2iVBcLyXaBqJUoyNxNMcSqKGFuURlZe3nf4__HcfEp2oHJJuNtLAxldKm3HOKJtfsgIQ_TOL8SjKzBWrT8Hxgali2H5_HDFfmWy-klGzWnrepRK_lw_67z1sy4L7AzzDdBE2CBG44W4CgYUprUQp3B2w2JL7nO9pNY5_yKFy81A1xXpDwCX6Jgrigcl0cRY");'></div>
-</div>
-</div>
-</div>
-</div>
-</header>
-<main class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-<!-- Breadcrumbs & Heading -->
-<div class="mb-6">
-<div class="flex flex-wrap gap-2 items-center">
-<a class="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary" href="#">Home</a>
-<span class="material-symbols-outlined text-gray-400 dark:text-gray-500 text-base">chevron_right</span>
-<span class="text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal">Điện thoại</span>
-</div>
-<div class="flex flex-wrap justify-between gap-3 pt-4">
-<p class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] min-w-72">Điện thoại</p>
-</div>
-</div>
-<div class="flex flex-col lg:flex-row gap-8">
-<!-- SideNavBar (Filters) -->
-<aside class="w-full lg:w-1/4 lg:max-w-xs shrink-0">
-<div class="sticky top-24">
-<div class="flex h-full flex-col justify-between bg-white dark:bg-gray-900/50 p-6 rounded-xl border border-gray-200 dark:border-gray-800">
-<div class="flex flex-col gap-6">
-<h1 class="text-gray-900 dark:text-white text-lg font-bold">Bộ lọc</h1>
-<div class="flex flex-col gap-4">
-<div class="flex flex-col gap-2">
-<label class="text-gray-800 dark:text-gray-200 text-sm font-medium">Hãng</label>
-<div class="flex flex-col gap-2">
-<div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox"/><span class="text-sm">Apple</span></div>
-<div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox"/><span class="text-sm">Samsung</span></div>
-<div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox"/><span class="text-sm">Xiaomi</span></div>
-<div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox"/><span class="text-sm">OPPO</span></div>
-</div>
-</div>
-<div class="border-t border-gray-200 dark:border-gray-800"></div>
-<div class="flex flex-col gap-3">
-<label class="text-gray-800 dark:text-gray-200 text-sm font-medium">Mức giá</label>
-<div class="flex items-center gap-2">
-<input class="form-input text-sm w-full rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700 focus:ring-primary/50 focus:border-primary" placeholder="Từ" type="number"/>
-<span class="text-gray-400">-</span>
-<input class="form-input text-sm w-full rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700 focus:ring-primary/50 focus:border-primary" placeholder="Đến" type="number"/>
-</div>
-</div>
-<div class="border-t border-gray-200 dark:border-gray-800"></div>
-<div class="flex flex-col gap-2">
-<label class="text-gray-800 dark:text-gray-200 text-sm font-medium">RAM</label>
-<div class="flex flex-col gap-2">
-<div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox"/><span class="text-sm">4 GB</span></div>
-<div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox"/><span class="text-sm">6 GB</span></div>
-<div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox"/><span class="text-sm">8 GB</span></div>
-<div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox"/><span class="text-sm">12 GB</span></div>
-</div>
-</div>
-<div class="border-t border-gray-200 dark:border-gray-800"></div>
-<div class="flex flex-col gap-2">
-<label class="text-gray-800 dark:text-gray-200 text-sm font-medium">ROM</label>
-<div class="flex flex-col gap-2">
-<div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox"/><span class="text-sm">64 GB</span></div>
-<div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox"/><span class="text-sm">128 GB</span></div>
-<div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox"/><span class="text-sm">256 GB</span></div>
-<div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox"/><span class="text-sm">512 GB</span></div>
-</div>
-</div>
-</div>
-</div>
-<button class="flex w-full mt-6 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
-<span class="truncate">Áp dụng</span>
-</button>
-</div>
-</div>
-</aside>
-<!-- Main Content -->
-<div class="w-full lg:w-3/4">
-<!-- Chips (Sorting) -->
-<div class="flex flex-wrap items-center gap-2 mb-6">
-<span class="text-sm font-medium text-gray-600 dark:text-gray-400 mr-2">Sắp xếp theo:</span>
-<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/20 dark:bg-primary/30 px-4">
-<p class="text-primary dark:text-white text-sm font-semibold leading-normal">Mặc định</p>
-</button>
-<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 dark:bg-gray-800 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-<p class="text-gray-700 dark:text-gray-300 text-sm font-medium leading-normal">Mới nhất</p>
-</button>
-<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 dark:bg-gray-800 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-<p class="text-gray-700 dark:text-gray-300 text-sm font-medium leading-normal">Giá tăng dần</p>
-</button>
-<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 dark:bg-gray-800 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-<p class="text-gray-700 dark:text-gray-300 text-sm font-medium leading-normal">Giá giảm dần</p>
-</button>
-<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 dark:bg-gray-800 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-<p class="text-gray-700 dark:text-gray-300 text-sm font-medium leading-normal">Bán chạy</p>
-</button>
-</div>
-<!-- Product Grid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-<!-- Product Card 1 -->
- <!-- Product Card 1 -->
-<div class="flex flex-col bg-white dark:bg-gray-900/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10">
+    <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
 
-  <!-- Ảnh sản phẩm có link -->
-  <a href="ChiTiet.html" class="aspect-[4/3] w-full overflow-hidden block">
-    <img class="w-full h-full object-cover"
-         alt="iPhone 15 Pro Max in Natural Titanium color"
-         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY2d2nVxm5IqNgx3My8d3HY4Q7Plf9phB9xQ1aupuyzb8hWiFF_t9o_CF2eMu2eEb9KDOtMR-bA37f3kPGHOHiVO5p66Yb4yudynIsSzc43KOhdGv_cznzox-mZOOBHLR49diPUzsRYzmX-rV-TS416MEBvRFYCt3ng1L67vUQY63W3CTVKX7bpCLYGrnB6wYQY6snantXCJ16dbedoy71ZTUvVkydIyXfaf7MbuQGbd8EoN_1aiieH25mXvQsNH94wSKcdU130qE" />
-  </a>
+        <header class="w-full bg-white dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800">
+            <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center gap-8">
+                        <div class="flex items-center gap-2 text-gray-800 dark:text-white">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">data_usage</span>
+                            <h2 class="text-xl font-bold leading-tight tracking-[-0.015em]">ABC Mobile</h2>
+                        </div>
+                        <div class="hidden md:flex">
+                            <label class="relative flex-col min-w-40 !h-10 max-w-64">
+                                <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                                    <div class="text-gray-500 dark:text-gray-400 flex bg-gray-100 dark:bg-gray-800 items-center justify-center pl-3 rounded-l-lg border-r-0">
+                                        <span class="material-symbols-outlined">search</span>
+                                    </div>
+                                    <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-800 dark:text-gray-200 focus:outline-0 focus:ring-0 border-none bg-gray-100 dark:bg-gray-800 h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal" placeholder="Search products..." value="" />
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-8">
+                        <nav class="hidden md:flex items-center gap-6">
+                            <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="phone.html">Điện thoại</a>
+                            <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Phụ kiện</a>
+                            <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="voucher.html">Khuyến mãi</a>
+                            <a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">Tin tức</a>
+                        </nav>
+                        <div class="flex items-center gap-3">
+                            <a href="shopcart.html">
+                                <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+                                    <span class="material-symbols-outlined mr-2">shopping_cart</span>
+                                    <span class="truncate hidden sm:inline">Giỏ hàng</span>
+                                </button>
+                            </a>
+                            <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBSBc3R0FEAzrvpOcjHbMxmnzIgpzZpyZXCbYRBe09OGGwUTd-1fbp7RLSX1Dklrm0UYpox1mmkDqDU2iVBcLyXaBqJUoyNxNMcSqKGFuURlZe3nf4__HcfEp2oHJJuNtLAxldKm3HOKJtfsgIQ_TOL8SjKzBWrT8Hxgali2H5_HDFfmWy-klGzWnrepRK_lw_67z1sy4L7AzzDdBE2CBG44W4CgYUprUQp3B2w2JL7nO9pNY5_yKFy81A1xXpDwCX6Jgrigcl0cRY");'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-  <div class="p-4 flex flex-col flex-grow">
+        <main class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-    
-    <a href="ChiTiet.html">
-      <h3 class="font-bold text-gray-800 dark:text-white text-base leading-snug mb-2 hover:text-primary">
-        iPhone 15 Pro Max 256GB | Chính hãng VN/A
-      </h3>
-    </a>
+            <div class="mb-6">
+                <div class="flex flex-wrap gap-2 items-center">
+                    <a class="text-gray-500 dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary" href="index.html">Trang Chủ</a>
+                    <span class="material-symbols-outlined text-gray-400 dark:text-gray-500 text-base">chevron_right</span>
+                    <span class="text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal">Điện thoại</span>
+                </div>
+                <div class="flex flex-wrap justify-between gap-3 pt-4">
+                    <p class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] min-w-72">Điện thoại</p>
+                </div>
+            </div>
 
-    <div class="flex items-center gap-2 mt-auto">
-      <p class="text-primary font-bold text-lg">29.990.000₫</p>
-      <p class="text-gray-500 dark:text-gray-400 line-through text-sm">34.990.000₫</p>
+            <div class="flex flex-col lg:flex-row gap-8">
+
+                <aside class="w-full lg:w-1/4 lg:max-w-xs shrink-0">
+                    <div class="sticky top-24">
+                        <div class="flex h-full flex-col justify-between bg-white dark:bg-gray-900/50 p-6 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <div class="flex flex-col gap-6">
+                                <h1 class="text-gray-900 dark:text-white text-lg font-bold">Bộ lọc</h1>
+                                <div class="flex flex-col gap-4">
+
+                                    <div class="flex flex-col gap-2">
+                                        <label class="text-gray-800 dark:text-gray-200 text-sm font-medium">Hãng</label>
+                                        <div class="flex flex-col gap-2">
+                                            <div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox" /><span class="text-sm">Apple</span></div>
+                                            <div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox" /><span class="text-sm">Samsung</span></div>
+                                            <div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox" /><span class="text-sm">Xiaomi</span></div>
+                                            <div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox" /><span class="text-sm">OPPO</span></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="border-t border-gray-200 dark:border-gray-800"></div>
+
+                                    <div class="flex flex-col gap-3">
+                                        <label class="text-gray-800 dark:text-gray-200 text-sm font-medium">Mức giá</label>
+                                        <div class="flex items-center gap-2">
+                                            <input class="form-input text-sm w-full rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700 focus:ring-primary/50 focus:border-primary" placeholder="Từ" type="number" />
+                                            <span class="text-gray-400">-</span>
+                                            <input class="form-input text-sm w-full rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700 focus:ring-primary/50 focus:border-primary" placeholder="Đến" type="number" />
+                                        </div>
+                                    </div>
+
+                                    <div class="border-t border-gray-200 dark:border-gray-800"></div>
+
+                                    <div class="flex flex-col gap-2">
+                                        <label class="text-gray-800 dark:text-gray-200 text-sm font-medium">RAM</label>
+                                        <div class="flex flex-col gap-2">
+                                            <div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox" /><span class="text-sm">4 GB</span></div>
+                                            <div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox" /><span class="text-sm">6 GB</span></div>
+                                            <div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox" /><span class="text-sm">8 GB</span></div>
+                                            <div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox" /><span class="text-sm">12 GB</span></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="border-t border-gray-200 dark:border-gray-800"></div>
+
+                                    <div class="flex flex-col gap-2">
+                                        <label class="text-gray-800 dark:text-gray-200 text-sm font-medium">ROM</label>
+                                        <div class="flex flex-col gap-2">
+                                            <div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox" /><span class="text-sm">64 GB</span></div>
+                                            <div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox" /><span class="text-sm">128 GB</span></div>
+                                            <div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox" /><span class="text-sm">256 GB</span></div>
+                                            <div class="flex items-center gap-2"><input class="form-checkbox rounded text-primary focus:ring-primary/50 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700" type="checkbox" /><span class="text-sm">512 GB</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="flex w-full mt-6 min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+                                <span class="truncate">Áp dụng</span>
+                            </button>
+                        </div>
+                    </div>
+                </aside>
+
+                <div class="w-full lg:w-3/4">
+
+                    <div class="flex flex-wrap items-center gap-2 mb-6">
+                        <span class="text-sm font-medium text-gray-600 dark:text-gray-400 mr-2">Sắp xếp theo:</span>
+                        <button class="sort-btn flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary/20 dark:bg-primary/30 px-4" data-sort="default">
+                            <p class="text-primary dark:text-white text-sm font-semibold leading-normal">Mặc định</p>
+                        </button>
+                        <button class="sort-btn flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 dark:bg-gray-800 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"  data-sort="newest">
+                            <p class="text-gray-700 dark:text-gray-300 text-sm font-medium leading-normal">Mới nhất</p>
+                        </button>
+                        <button class="sort-btn flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 dark:bg-gray-800 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" data-sort="price-asc">
+                            <p class="text-gray-700 dark:text-gray-300 text-sm font-medium leading-normal">Giá tăng dần</p>
+                        </button>
+                        <button class="sort-btn flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 dark:bg-gray-800 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"  data-sort="price-desc">
+                            <p class="text-gray-700 dark:text-gray-300 text-sm font-medium leading-normal">Giá giảm dần</p>
+                        </button>
+                        <button class="sort-btn flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 dark:bg-gray-800 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" data-sort="popular">
+                            <p class="text-gray-700 dark:text-gray-300 text-sm font-medium leading-normal">Bán chạy</p>
+                        </button>
+                    </div>
+
+                    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+
+                       <div
+  class="product-card flex flex-col bg-white dark:bg-gray-900/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10"
+  data-price="29990000"
+  data-date="2024-03-01"
+  data-popularity="123">
+                            <a href="ChiTiet.html" class="aspect-[4/3] w-full overflow-hidden block">
+                                <img class="w-full h-full object-cover" alt="iPhone 15 Pro Max in Natural Titanium color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY2d2nVxm5IqNgx3My8d3HY4Q7Plf9phB9xQ1aupuyzb8hWiFF_t9o_CF2eMu2eEb9KDOtMR-bA37f3kPGHOHiVO5p66Yb4yudynIsSzc43KOhdGv_cznzox-mZOOBHLR49diPUzsRYzmX-rV-TS416MEBvRFYCt3ng1L67vUQY63W3CTVKX7bpCLYGrnB6wYQY6snantXCJ16dbedoy71ZTUvVkydIyXfaf7MbuQGbd8EoN_1aiieH25mXvQsNH94wSKcdU130qE" />
+                            </a>
+                            <div class="p-4 flex flex-col flex-grow">
+                                <a href="ChiTiet.html">
+                                    <h3 class="font-bold text-gray-800 dark:text-white text-base leading-snug mb-2 hover:text-primary">
+                                        iPhone 15 Pro Max 256GB | Chính hãng VN/A
+                                    </h3>
+                                </a>
+                                <div class="flex items-center gap-2 mt-auto">
+                                    <p class="text-primary font-bold text-lg">29.990.000₫</p>
+                                    <p class="text-gray-500 dark:text-gray-400 line-through text-sm">34.990.000₫</p>
+                                </div>
+                                <div class="flex items-center gap-1 text-yellow-500 mt-2">
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star_half</span>
+                                    <span class="text-gray-500 dark:text-gray-400 text-xs ml-1">(123)</span>
+                                </div>
+                                <div class="flex items-center gap-2 mt-4">
+                                    <a href="ChiTiet.html" class="flex-1 text-sm text-center flex items-center justify-center font-bold h-10 px-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                                        Xem chi tiết
+                                    </a>
+                                    <button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">
+                                        Thêm vào giỏ
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+  class="product-card flex flex-col bg-white dark:bg-gray-900/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10"
+  data-price="29990000"
+  data-date="2024-03-01"
+  data-popularity="120">
+
+                            <div class="aspect-[4/3] w-full overflow-hidden">
+                                <img class="w-full h-full object-cover" data-alt="iPhone 15 Pro Max in Natural Titanium color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY2d2nVxm5IqNgx3My8d3HY4Q7Plf9phB9xQ1aupuyzb8hWiFF_t9o_CF2eMu2eEb9KDOtMR-bA37f3kPGHOHiVO5p66Yb4yudynIsSzc43KOhdGv_cznzox-mZOOBHLR49diPUzsRYzmX-rV-TS416MEBvRFYCt3ng1L67vUQY63W3CTVKX7bpCLYGrnB6wYQY6snantXCJ16dbedoy71ZTUvVkydIyXfaf7MbuQGbd8EoN_1aiieH25mXvQsNH94wSKcdU130qE" />
+                            </div>
+                            <div class="p-4 flex flex-col flex-grow">
+                                <h3 class="font-bold text-gray-800 dark:text-white text-base leading-snug mb-2">iPhone 15 Pro Max 256GB | Chính hãng VN/A</h3>
+                                <div class="flex items-center gap-2 mt-auto">
+                                    <p class="text-primary font-bold text-lg">29.990.000₫</p>
+                                    <p class="text-gray-500 dark:text-gray-400 line-through text-sm">34.990.000₫</p>
+                                </div>
+                                <div class="flex items-center gap-1 text-yellow-500 mt-2">
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star_half</span>
+                                    <span class="text-gray-500 dark:text-gray-400 text-xs ml-1">(123)</span>
+                                </div>
+                                <div class="flex items-center gap-2 mt-4">
+                                    <button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Xem chi tiết</button>
+                                    <button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">Thêm vào giỏ</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+  class="product-card flex flex-col bg-white dark:bg-gray-900/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10"
+  data-price="30490000"
+  data-date="2024-02-15"
+  data-popularity="98">
+
+                            <div class="aspect-[4/3] w-full overflow-hidden">
+                                <img class="w-full h-full object-cover" data-alt="Samsung Galaxy S24 Ultra in Titanium Gray" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQV8fzPKXHkAi4873pWGriU73QYn_-kVpyqHR_pI_8RYGKjdhZ0f4yKw7oQCiOHCdv-pRmlh9cnX2aAol33HK8-2NIU-N7bqSPXIKB0lV2_P0LjPyo-5zgtMnPJmxwCp09P9635TIrpgax3bEY35Q3i8r5XB5BW8d_fW1yiqDPWB5-gS_iV7gwa1VeYO26Lk-jPCCXfI1wPWPXtei9rETX2ZJ1hMZFgs0KECxwy1qoPclbALeLoN884dKJ05yppQmMl7L3Gr3JTzQ" />
+                            </div>
+                            <div class="p-4 flex flex-col flex-grow">
+                                <h3 class="font-bold text-gray-800 dark:text-white text-base leading-snug mb-2">Samsung Galaxy S24 Ultra 12GB 256GB</h3>
+                                <div class="flex items-center gap-2 mt-auto">
+                                    <p class="text-primary font-bold text-lg">30.490.000₫</p>
+                                    <p class="text-gray-500 dark:text-gray-400 line-through text-sm">33.990.000₫</p>
+                                </div>
+                                <div class="flex items-center gap-1 text-yellow-500 mt-2">
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base">star</span>
+                                    <span class="text-gray-500 dark:text-gray-400 text-xs ml-1">(98)</span>
+                                </div>
+                                <div class="flex items-center gap-2 mt-4">
+                                    <button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Xem chi tiết</button>
+                                    <button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">Thêm vào giỏ</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+  class="product-card flex flex-col bg-white dark:bg-gray-900/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10"
+  data-price="9490000"
+  data-date="2023-09-20"
+  data-popularity="210">
+
+                            <div class="aspect-[4/3] w-full overflow-hidden">
+                                <img class="w-full h-full object-cover" data-alt="Xiaomi 13T in black color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7YfE35ceVWiF3_kpkH9oRSGswNWL3cjLlgeOr0SsbgWrGnf1h0SJFrL0ViEQnzO0Sj6GsVSNtk76Nhtde54EuSrSKnff71kBGinv1Gf40OL3jtkTnYePFa6l33yK24P0E2_tShDiRDhf0iXFHHcHM9R8APrAq6mj-BWiXHmr20Lc-G-h0YHkDut-ODJsjf6TWbrAKzjzBE6zC3qQ4-ITJT47L2ohp7FzysUWBQFFWR0hp4bIe91RN1kVJKyEZXXQ8bQNNWV5eKnM" />
+                            </div>
+                            <div class="p-4 flex flex-col flex-grow">
+                                <h3 class="font-bold text-gray-800 dark:text-white text-base leading-snug mb-2">Xiaomi 13T 5G 8GB 256GB</h3>
+                                <div class="flex items-center gap-2 mt-auto">
+                                    <p class="text-primary font-bold text-lg">9.490.000₫</p>
+                                    <p class="text-gray-500 dark:text-gray-400 line-through text-sm">12.990.000₫</p>
+                                </div>
+                                <div class="flex items-center gap-1 text-yellow-500 mt-2">
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star_half</span>
+                                    <span class="text-gray-500 dark:text-gray-400 text-xs ml-1">(210)</span>
+                                </div>
+                                <div class="flex items-center gap-2 mt-4">
+                                    <button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Xem chi tiết</button>
+                                    <button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">Thêm vào giỏ</button>
+                                </div>
+                            </div>
+                        </div>
+
+                      <div
+  class="product-card flex flex-col bg-white dark:bg-gray-900/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10"
+  data-price="24590000"
+  data-date="2023-10-15"
+  data-popularity="55">
+
+                            <div class="aspect-[4/3] w-full overflow-hidden">
+                                <img class="w-full h-full object-cover" data-alt="Google Pixel 8 Pro in blue color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD248Fdm54HwVdDWKJJciA8FDUOhTno4EK9YSeb26uWsC7UgzOiYUJheF5wwmghrwZS1sQxHK3M2u3X9ZxAH8R4FKK0wsjwLf5yO5U9Gbysuaxb1N-3u-jL_YJTfwq_iBGmNeEmx5XjZpNoLv0IX0m5ArTTcJSYNFlZRFHIY7b3RLyYSuwSPupvhDWSGMaC9E4FpbwaQlgIz07jVpHJ4o2m1AYp25k_1YdwrLCXTnPPWqMkRzjcy5hdufeS-_ABwocCXdkJjW2UYe4" />
+                            </div>
+                            <div class="p-4 flex flex-col flex-grow">
+                                <h3 class="font-bold text-gray-800 dark:text-white text-base leading-snug mb-2">Google Pixel 8 Pro 128GB</h3>
+                                <div class="flex items-center gap-2 mt-auto">
+                                    <p class="text-primary font-bold text-lg">24.590.000₫</p>
+                                    <p class="text-gray-500 dark:text-gray-400 line-through text-sm">26.990.000₫</p>
+                                </div>
+                                <div class="flex items-center gap-1 text-yellow-500 mt-2">
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base">star</span>
+                                    <span class="text-gray-500 dark:text-gray-400 text-xs ml-1">(55)</span>
+                                </div>
+                                <div class="flex items-center gap-2 mt-4">
+                                    <button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Xem chi tiết</button>
+                                    <button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">Thêm vào giỏ</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+  class="product-card flex flex-col bg-white dark:bg-gray-900/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10"
+  data-price="22990000"
+  data-date="2023-11-10"
+  data-popularity="41">
+                            <div class="aspect-[4/3] w-full overflow-hidden">
+                                <img class="w-full h-full object-cover" data-alt="OPPO Find N3 Flip in pink color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGuC2JjcUgKHc0ruI9JS1Jgy-JPO4r4EwjyTa4d-yuvy0R0J7oWUpDI_5J5-AqXsHwaXioeBAI8gYuP__-nA6uoKO2dR4cjddp8OZkkeoe50gy0qG2oRCgpbx2B3dnes2xtrNz81bVUoJE6XY8KdnWGp3nvkIm1CSbEvD0RGBzpqDs4209uS-LCfQVBXMvu-Yh-uv4uJN75K91a5qFD4R_2UbbgWFOgCcj5cNxeYtUCmHjb_046_7EcQrnHSHI4NIxO87NnXoJt9E" />
+                            </div>
+                            <div class="p-4 flex flex-col flex-grow">
+                                <h3 class="font-bold text-gray-800 dark:text-white text-base leading-snug mb-2">OPPO Find N3 Flip 5G 12GB 256GB</h3>
+                                <div class="flex items-center gap-2 mt-auto">
+                                    <p class="text-primary font-bold text-lg">22.990.000₫</p>
+                                </div>
+                                <div class="flex items-center gap-1 text-yellow-500 mt-2">
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star_half</span>
+                                    <span class="text-gray-500 dark:text-gray-400 text-xs ml-1">(41)</span>
+                                </div>
+                                <div class="flex items-center gap-2 mt-4">
+                                    <button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Xem chi tiết</button>
+                                    <button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">Thêm vào giỏ</button>
+                                </div>
+                            </div>
+                        </div>
+
+                       <div
+  class="product-card flex flex-col bg-white dark:bg-gray-900/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10"
+  data-price="21490000"
+  data-date="2023-09-15"
+  data-popularity="150">
+                            <div class="aspect-[4/3] w-full overflow-hidden">
+                                <img class="w-full h-full object-cover" data-alt="iPhone 15 in blue color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbt-jHrvtO2NZZZS_E9y30IHLdcDBr9dg5wf123lqjttAxXTPDfHJfAgmmso0e2tSrBgrxFpsbjLv4Iyz1KT91LxPXF3m2I9ENthGzztaRIVZ0MLQKXgA9cwt4BdRm0jnHLeIZe3gyHSO4agF24dD6-XaTbS_O2oB64Rt7CLgiZfx1-oCxjnONJ2ycd9MDYPWg-E-nxGHQUPCTW3RvUuU3FUc-ghOFL8zvlHyMYn22NGaO76LXI5JK76GnzKoV1a6QvjDWO0zYHKU" />
+                            </div>
+                            <div class="p-4 flex flex-col flex-grow">
+                                <h3 class="font-bold text-gray-800 dark:text-white text-base leading-snug mb-2">iPhone 15 128GB | Chính hãng VN/A</h3>
+                                <div class="flex items-center gap-2 mt-auto">
+                                    <p class="text-primary font-bold text-lg">21.490.000₫</p>
+                                    <p class="text-gray-500 dark:text-gray-400 line-through text-sm">22.990.000₫</p>
+                                </div>
+                                <div class="flex items-center gap-1 text-yellow-500 mt-2">
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined !text-base">star</span>
+                                    <span class="text-gray-500 dark:text-gray-400 text-xs ml-1">(150)</span>
+                                </div>
+                                <div class="flex items-center gap-2 mt-4">
+                                    <button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Xem chi tiết</button>
+                                    <button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">Thêm vào giỏ</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="flex justify-center mt-12">
+                        <nav class="flex items-center gap-1">
+                            <button class="flex items-center justify-center size-9 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                                <span class="material-symbols-outlined text-xl">chevron_left</span>
+                            </button>
+                            <button class="flex items-center justify-center size-9 rounded-lg bg-primary text-white text-sm font-bold">1</button>
+                            <button class="flex items-center justify-center size-9 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-medium transition-colors">2</button>
+                            <button class="flex items-center justify-center size-9 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-medium transition-colors">3</button>
+                            <span class="text-gray-500 dark:text-gray-400">...</span>
+                            <button class="flex items-center justify-center size-9 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-medium transition-colors">10</button>
+                            <button class="flex items-center justify-center size-9 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                                <span class="material-symbols-outlined text-xl">chevron_right</span>
+                            </button>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </main>
     </div>
+</body>
 
-    <div class="flex items-center gap-1 text-yellow-500 mt-2">
-      <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-      <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-      <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-      <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-      <span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star_half</span>
-      <span class="text-gray-500 dark:text-gray-400 text-xs ml-1">(123)</span>
-    </div>
-
-    <div class="flex items-center gap-2 mt-4">
-      <a href="ChiTiet.html"
-         class="flex-1 text-sm text-center flex items-center justify-center font-bold h-10 px-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-        Xem chi tiết
-      </a>
-
-      <!-- Nút thêm vào giỏ giữ nguyên là button -->
-      <button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">
-        Thêm vào giỏ
-      </button>
-    </div>
-  </div>
-</div>
-
-<div class="flex flex-col bg-white dark:bg-gray-900/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10">
-<div class="aspect-[4/3] w-full overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="iPhone 15 Pro Max in Natural Titanium color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY2d2nVxm5IqNgx3My8d3HY4Q7Plf9phB9xQ1aupuyzb8hWiFF_t9o_CF2eMu2eEb9KDOtMR-bA37f3kPGHOHiVO5p66Yb4yudynIsSzc43KOhdGv_cznzox-mZOOBHLR49diPUzsRYzmX-rV-TS416MEBvRFYCt3ng1L67vUQY63W3CTVKX7bpCLYGrnB6wYQY6snantXCJ16dbedoy71ZTUvVkydIyXfaf7MbuQGbd8EoN_1aiieH25mXvQsNH94wSKcdU130qE" />
-</div>
-<div class="p-4 flex flex-col flex-grow">
-<h3 class="font-bold text-gray-800 dark:text-white text-base leading-snug mb-2">iPhone 15 Pro Max 256GB | Chính hãng VN/A</h3>
-<div class="flex items-center gap-2 mt-auto">
-<p class="text-primary font-bold text-lg">29.990.000₫</p>
-<p class="text-gray-500 dark:text-gray-400 line-through text-sm">34.990.000₫</p>
-</div>
-<div class="flex items-center gap-1 text-yellow-500 mt-2">
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star_half</span>
-<span class="text-gray-500 dark:text-gray-400 text-xs ml-1">(123)</span>
-</div>
-<div class="flex items-center gap-2 mt-4">
-<button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Xem chi tiết</button>
-<button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">Thêm vào giỏ</button>
-</div>
-</div>
-</div>
-<!-- Product Card 2 -->
-<div class="flex flex-col bg-white dark:bg-gray-900/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10">
-<div class="aspect-[4/3] w-full overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="Samsung Galaxy S24 Ultra in Titanium Gray" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQV8fzPKXHkAi4873pWGriU73QYn_-kVpyqHR_pI_8RYGKjdhZ0f4yKw7oQCiOHCdv-pRmlh9cnX2aAol33HK8-2NIU-N7bqSPXIKB0lV2_P0LjPyo-5zgtMnPJmxwCp09P9635TIrpgax3bEY35Q3i8r5XB5BW8d_fW1yiqDPWB5-gS_iV7gwa1VeYO26Lk-jPCCXfI1wPWPXtei9rETX2ZJ1hMZFgs0KECxwy1qoPclbALeLoN884dKJ05yppQmMl7L3Gr3JTzQ"/>
-</div>
-<div class="p-4 flex flex-col flex-grow">
-<h3 class="font-bold text-gray-800 dark:text-white text-base leading-snug mb-2">Samsung Galaxy S24 Ultra 12GB 256GB</h3>
-<div class="flex items-center gap-2 mt-auto">
-<p class="text-primary font-bold text-lg">30.490.000₫</p>
-<p class="text-gray-500 dark:text-gray-400 line-through text-sm">33.990.000₫</p>
-</div>
-<div class="flex items-center gap-1 text-yellow-500 mt-2">
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base">star</span>
-<span class="text-gray-500 dark:text-gray-400 text-xs ml-1">(98)</span>
-</div>
-<div class="flex items-center gap-2 mt-4">
-<button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Xem chi tiết</button>
-<button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">Thêm vào giỏ</button>
-</div>
-</div>
-</div>
-<!-- Product Card 3 -->
-<div class="flex flex-col bg-white dark:bg-gray-900/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10">
-<div class="aspect-[4/3] w-full overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="Xiaomi 13T in black color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7YfE35ceVWiF3_kpkH9oRSGswNWL3cjLlgeOr0SsbgWrGnf1h0SJFrL0ViEQnzO0Sj6GsVSNtk76Nhtde54EuSrSKnff71kBGinv1Gf40OL3jtkTnYePFa6l33yK24P0E2_tShDiRDhf0iXFHHcHM9R8APrAq6mj-BWiXHmr20Lc-G-h0YHkDut-ODJsjf6TWbrAKzjzBE6zC3qQ4-ITJT47L2ohp7FzysUWBQFFWR0hp4bIe91RN1kVJKyEZXXQ8bQNNWV5eKnM"/>
-</div>
-<div class="p-4 flex flex-col flex-grow">
-<h3 class="font-bold text-gray-800 dark:text-white text-base leading-snug mb-2">Xiaomi 13T 5G 8GB 256GB</h3>
-<div class="flex items-center gap-2 mt-auto">
-<p class="text-primary font-bold text-lg">9.490.000₫</p>
-<p class="text-gray-500 dark:text-gray-400 line-through text-sm">12.990.000₫</p>
-</div>
-<div class="flex items-center gap-1 text-yellow-500 mt-2">
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star_half</span>
-<span class="text-gray-500 dark:text-gray-400 text-xs ml-1">(210)</span>
-</div>
-<div class="flex items-center gap-2 mt-4">
-<button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Xem chi tiết</button>
-<button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">Thêm vào giỏ</button>
-</div>
-</div>
-</div>
-<!-- Product Card 4 -->
-<div class="flex flex-col bg-white dark:bg-gray-900/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10">
-<div class="aspect-[4/3] w-full overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="Google Pixel 8 Pro in blue color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD248Fdm54HwVdDWKJJciA8FDUOhTno4EK9YSeb26uWsC7UgzOiYUJheF5wwmghrwZS1sQxHK3M2u3X9ZxAH8R4FKK0wsjwLf5yO5U9Gbysuaxb1N-3u-jL_YJTfwq_iBGmNeEmx5XjZpNoLv0IX0m5ArTTcJSYNFlZRFHIY7b3RLyYSuwSPupvhDWSGMaC9E4FpbwaQlgIz07jVpHJ4o2m1AYp25k_1YdwrLCXTnPPWqMkRzjcy5hdufeS-_ABwocCXdkJjW2UYe4"/>
-</div>
-<div class="p-4 flex flex-col flex-grow">
-<h3 class="font-bold text-gray-800 dark:text-white text-base leading-snug mb-2">Google Pixel 8 Pro 128GB</h3>
-<div class="flex items-center gap-2 mt-auto">
-<p class="text-primary font-bold text-lg">24.590.000₫</p>
-<p class="text-gray-500 dark:text-gray-400 line-through text-sm">26.990.000₫</p>
-</div>
-<div class="flex items-center gap-1 text-yellow-500 mt-2">
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base">star</span>
-<span class="text-gray-500 dark:text-gray-400 text-xs ml-1">(55)</span>
-</div>
-<div class="flex items-center gap-2 mt-4">
-<button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Xem chi tiết</button>
-<button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">Thêm vào giỏ</button>
-</div>
-</div>
-</div>
-<!-- Product Card 5 -->
-<div class="flex flex-col bg-white dark:bg-gray-900/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10">
-<div class="aspect-[4/3] w-full overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="OPPO Find N3 Flip in pink color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGuC2JjcUgKHc0ruI9JS1Jgy-JPO4r4EwjyTa4d-yuvy0R0J7oWUpDI_5J5-AqXsHwaXioeBAI8gYuP__-nA6uoKO2dR4cjddp8OZkkeoe50gy0qG2oRCgpbx2B3dnes2xtrNz81bVUoJE6XY8KdnWGp3nvkIm1CSbEvD0RGBzpqDs4209uS-LCfQVBXMvu-Yh-uv4uJN75K91a5qFD4R_2UbbgWFOgCcj5cNxeYtUCmHjb_046_7EcQrnHSHI4NIxO87NnXoJt9E"/>
-</div>
-<div class="p-4 flex flex-col flex-grow">
-<h3 class="font-bold text-gray-800 dark:text-white text-base leading-snug mb-2">OPPO Find N3 Flip 5G 12GB 256GB</h3>
-<div class="flex items-center gap-2 mt-auto">
-<p class="text-primary font-bold text-lg">22.990.000₫</p>
-</div>
-<div class="flex items-center gap-1 text-yellow-500 mt-2">
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star_half</span>
-<span class="text-gray-500 dark:text-gray-400 text-xs ml-1">(41)</span>
-</div>
-<div class="flex items-center gap-2 mt-4">
-<button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Xem chi tiết</button>
-<button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">Thêm vào giỏ</button>
-</div>
-</div>
-</div>
-<!-- Product Card 6 -->
-<div class="flex flex-col bg-white dark:bg-gray-900/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10">
-<div class="aspect-[4/3] w-full overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="iPhone 15 in blue color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbt-jHrvtO2NZZZS_E9y30IHLdcDBr9dg5wf123lqjttAxXTPDfHJfAgmmso0e2tSrBgrxFpsbjLv4Iyz1KT91LxPXF3m2I9ENthGzztaRIVZ0MLQKXgA9cwt4BdRm0jnHLeIZe3gyHSO4agF24dD6-XaTbS_O2oB64Rt7CLgiZfx1-oCxjnONJ2ycd9MDYPWg-E-nxGHQUPCTW3RvUuU3FUc-ghOFL8zvlHyMYn22NGaO76LXI5JK76GnzKoV1a6QvjDWO0zYHKU"/>
-</div>
-<div class="p-4 flex flex-col flex-grow">
-<h3 class="font-bold text-gray-800 dark:text-white text-base leading-snug mb-2">iPhone 15 128GB | Chính hãng VN/A</h3>
-<div class="flex items-center gap-2 mt-auto">
-<p class="text-primary font-bold text-lg">21.490.000₫</p>
-<p class="text-gray-500 dark:text-gray-400 line-through text-sm">22.990.000₫</p>
-</div>
-<div class="flex items-center gap-1 text-yellow-500 mt-2">
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined !text-base">star</span>
-<span class="text-gray-500 dark:text-gray-400 text-xs ml-1">(150)</span>
-</div>
-<div class="flex items-center gap-2 mt-4">
-<button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Xem chi tiết</button>
-<button class="flex-1 text-sm font-bold h-10 px-4 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">Thêm vào giỏ</button>
-</div>
-</div>
-</div>
-</div>
-<!-- Pagination -->
-<div class="flex justify-center mt-12">
-<nav class="flex items-center gap-1">
-<button class="flex items-center justify-center size-9 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-<span class="material-symbols-outlined text-xl">chevron_left</span>
-</button>
-<button class="flex items-center justify-center size-9 rounded-lg bg-primary text-white text-sm font-bold">1</button>
-<button class="flex items-center justify-center size-9 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-medium transition-colors">2</button>
-<button class="flex items-center justify-center size-9 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-medium transition-colors">3</button>
-<span class="text-gray-500 dark:text-gray-400">...</span>
-<button class="flex items-center justify-center size-9 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-medium transition-colors">10</button>
-<button class="flex items-center justify-center size-9 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-<span class="material-symbols-outlined text-xl">chevron_right</span>
-</button>
-</nav>
-</div>
-</div>
-</div>
-</main>
-</div>
-</body></html>
+</html>
